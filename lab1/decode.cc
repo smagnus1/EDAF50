@@ -1,32 +1,33 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <fstream>
+#include <array>
 
 using namespace std;
 
-
 int main() {
 
-    std::string filename;
-    cout << "Please enter filename.";
-    std::getline (std::cin,filename);
-    ifstream file("filename.txt");
+    string filename;
+    cout << "Please enter filename." << '\n';
+    getline (std::cin,filename);
+    ifstream file(filename);
 
-    char txtFile [5] = {0};
+    char *data = new char[20];
 
-    if(file.is_open()) {
-        for(int i = 0; i < 4; ++i) {  //declared size instead of finding a "file.sizeof" due to time limits
-            file >> txtFile[i];
-        }
+    for(int i = 0; i<20; i++)
+        file >> data[i];
+
+    //file.tellg() for size instead?
+
+    
+
+    for(int i = 0; i < 20; ++i) {
+        data[i] = data[i] - 1;
     }
 
-    //char txtFile [] = infile >> data;;
-   
-    void encodeFile(txtFile) {
-        for(int i = 0; i<sizeof(txtFile); i++) {
-            int x = txtFile[i];
-            x--;
-            txtFile[i] = (char)x;
-        }
-    }
+    ofstream out(filename, ios::binary);
+    out.write(data, 20);
 }
+
+
