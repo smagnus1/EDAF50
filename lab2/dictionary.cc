@@ -48,7 +48,6 @@ bool Dictionary::contains(const string& word) const {
 	} else {
 		return true;
 	}
-	
 	return false;
 }
 

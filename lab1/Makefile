@@ -19,7 +19,7 @@ LDFLAGS =   -g
 #CPPFLAGS += -stdlib=libc++
 #CXXFLAGS += -stdlib=libc++
 LDFLAGS += -L.
-LDLIBS = -llab1
+LDLIBS = -llab1 
 
 # Targets
 PROGS =  ltest test_coding print_argv encode decode list hello 

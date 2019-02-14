@@ -7,7 +7,8 @@ using std::string;
 
 /* Creates a word w with the sorted trigrams t */
 Word::Word(const string& w, const vector<string>& t) {
-	word w;
+	 w;
+
 }
 
 /* Creates a word w with the sorted trigrams t */

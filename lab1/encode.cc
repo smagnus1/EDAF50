@@ -13,6 +13,8 @@ int main() {
     getline (std::cin,filename);
     ifstream file(filename);
 
+    //could have a check on if file works properly or not here
+
     //Tried file.tellg() for size but that seems to return 0, what is the correct way?
     char *data = new char[20];
 
