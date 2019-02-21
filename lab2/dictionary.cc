@@ -12,7 +12,7 @@
 #include "dictionary.h"
 
 
-
+/*
 using std::ifstream;
 using std::stringstream;
 using std::cout;
@@ -22,6 +22,7 @@ using std::vector;
 using std::min;
 using std::pair;
 using std::make_pair;
+*/
 
 using namespace std;
 
@@ -48,8 +49,8 @@ Dictionary::Dictionary() {
 		ovan, en vector trigrams: word[i].push_back(Word(word, trigrams));
 	*/
 
-	while(in >> word) {
-		short nbrTrigrams;
+	while(in >> word) { //för varje ord hämtar vi även dess trigrams och lägger in i vår trigram-vector
+		int nbrTrigrams;
 		in >> nbrTrigrams;
 
 		vector<string> trigrams;
@@ -64,11 +65,15 @@ Dictionary::Dictionary() {
 		words[word.length()-1].push_back(w);
 	}
 
+	//should push to dictionary as well
+	//dictionary.insert(word); ...
+	
 	in.close();
 }
 
 bool Dictionary::contains(const string& word) const {
-	return dictionary->count(word);
+	return false;
+	//return words->count(word);
 }
 
 vector<string> Dictionary::get_suggestions(const string& word) const {
@@ -84,7 +89,7 @@ void Dictionary::add_trigram_suggestions(vector<string> &suggestions, const stri
 		return;
 	}
 	int wLength = word.length();
-	int nbrTrigrams = wLength - 2; 
+	unsigned int nbrTrigrams = wLength - 2; 
 	vector<string> trigrams(nbrTrigrams);
 	
 	for(int i = 0; i < wLength-2; i++) {
@@ -114,7 +119,6 @@ void Dictionary::add_trigram_suggestions(vector<string> &suggestions, const stri
 		alla dessa ska läggas in i vår vector suggestions
 	*/ 
 
-
 void Dictionary::rank_trigram_suggestions(vector<string>& suggestions, const string word) const {
 	if(word.length() < 3) {
 		return;
@@ -130,27 +134,40 @@ void Dictionary::rank_trigram_suggestions(vector<string>& suggestions, const str
 }	
 
 int Dictionary::levenshteinOf(const string word, const string s) const {
-	string::size_type string_length {s.length()};
-	string::size_type word_length {word.length()};
+	string::size_type string_length = s.length();
+	string::size_type word_length = word.length();
 
 	int d[26][26];
 	d[0][0] = 0;
-
 	
-	//fill matrix with 
-	for(int i = 1; i <= word_length; i++) {
+	//fill matrix
+	for(unsigned int i = 1; i <= word_length; i++) {
 		d[i][0] = i;		
 	}
-	for(int i = 1; i <= string_length; i++) {
+	for(unsigned int i = 1; i <= string_length; i++) {
 		d[0][i] = i;
 	}
-	//...
+	for(unsigned int i = 1; i<string_length+1; i++) {
+		for(unsigned int j = 1; j<word_length+1; j++) {
+			unsigned int a, b, c;
+			if(word[i-1] == s[i-1]) {
+				a = d[i-1][j-1];
+			} else {
+				a = d[i-1][j-1] + 1; 
+			} 
+			b = d[i-1][j] + 1;
+			c = d[i][j-1] + 1;
+			d[i][j] = std::min({a, b, c});
+		}
+	}
+	return d[string_length][word_length];
+	//levenshtein help...
 }
 
 //keep 5 best
 void Dictionary::trim_suggestions(vector<string>& suggestions) const {
-	//vector<string>& trimmedSuggestions; RESIZE instead
-
+	//vector<string>& trimmedSuggestions; better way - RESIZE instead
+	
 	int newSize;
 	if(suggestions.size() >= 5) {
 		newSize = 5;
