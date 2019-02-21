@@ -21,7 +21,7 @@ LDFLAGS =   -g
 #LDFLAGS +=  -stdlib=libc++
 
 # Targets
-PROGS =  ltest test_coding print_argv encode decode list hello fileReader dictionary
+PROGS =  ltest test_coding print_argv encode decode list hello fileReader dictionary spell
  
 all: $(PROGS)
 
@@ -38,6 +38,7 @@ list: list.o
 hello: hello.o
 filereader: fileReader.o 
 dictionary: dictionary.o
+spell: spell.o dictionary.o word.o
 
 # Phony targets
 .PHONY: all test clean distclean
