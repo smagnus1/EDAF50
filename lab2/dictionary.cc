@@ -1,28 +1,17 @@
-#include <string>
 #include <vector>
 #include <fstream>
 #include <iostream>
 #include <algorithm>
 #include <list>
 #include <string>
+#include <unordered_set>
 #include <sstream>
 #include <vector>
-#include <fstream>
-#include <iostream>
-#include <algorithm>
-#include <unordered_set>
-#include "word.h"
-#include "dictionary.h"
 
 #include "word.h"
 #include "dictionary.h"
 
-#include <fstream>
-#include <iostream>
-#include <algorithm>
-#include <sstream>
-#include "word.h"
-#include "dictionary.h"
+
 
 using std::ifstream;
 using std::stringstream;
@@ -34,8 +23,6 @@ using std::min;
 using std::pair;
 using std::make_pair;
 
-using std::string;
-using std::vector;
 using namespace std;
 
 
@@ -86,6 +73,9 @@ bool Dictionary::contains(const string& word) const {
 
 vector<string> Dictionary::get_suggestions(const string& word) const {
 	vector<string> suggestions;
+	add_trigram_suggestions(suggestions, word);
+	rank_trigram_suggestions(suggestions, word);
+	trim_suggestions(suggestions);
 	return suggestions;
 }
 
@@ -103,10 +93,10 @@ void Dictionary::add_trigram_suggestions(vector<string> &suggestions, const stri
 
 	sort(trigrams.begin(), trigrams.end());
 
-	int start = wLength -1;
-	int end = wLength + 1;
+	unsigned int start = wLength -1;
+	unsigned int end = wLength + 1;
 
-	for(int i = start; i <= end && i <= MAX_LENGTH; i++) {
+	for(unsigned int i = start; i <= end && i <= MAX_LENGTH; i++) {
 		//Of these candidates, the words which contain at least
 		//half of the “trigrams” of the misspelled word should be kept
 		for(Word w: words[i]) {
@@ -147,13 +137,26 @@ int Dictionary::levenshteinOf(const string word, const string s) const {
 	d[0][0] = 0;
 
 	
-	//fill matrix
+	//fill matrix with 
 	for(int i = 1; i <= word_length; i++) {
 		d[i][0] = i;		
 	}
 	for(int i = 1; i <= string_length; i++) {
 		d[0][i] = i;
 	}
+	//...
+}
 
+//keep 5 best
+void Dictionary::trim_suggestions(vector<string>& suggestions) const {
+	//vector<string>& trimmedSuggestions; RESIZE instead
 
+	int newSize;
+	if(suggestions.size() >= 5) {
+		newSize = 5;
+	} else {
+		newSize = suggestions.size();
+	}
+
+	suggestions.resize(newSize);
 }

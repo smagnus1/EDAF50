@@ -21,23 +21,15 @@ LDFLAGS =   -g
 #LDFLAGS +=  -stdlib=libc++
 
 # Targets
-PROGS =  ltest test_coding print_argv encode decode list hello fileReader dictionary spell
+PROGS =  fileReader spell
  
 all: $(PROGS)
 
-test: test_coding
-	./test_coding
+test: spell
+	./spell
 
 # Targets rely on implicit rules for compiling and linking
-ltest: ltest.o list.o
-test_coding: test_coding.o coding.o
-print_argv: print_argv.o
-encode: encode.o
-decode: decode.o
-list: list.o
-hello: hello.o
 filereader: fileReader.o 
-dictionary: dictionary.o
 spell: spell.o dictionary.o word.o
 
 # Phony targets
