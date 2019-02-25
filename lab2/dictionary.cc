@@ -12,7 +12,7 @@
 #include "dictionary.h"
 
 
-/*
+
 using std::ifstream;
 using std::stringstream;
 using std::cout;
@@ -22,7 +22,7 @@ using std::vector;
 using std::min;
 using std::pair;
 using std::make_pair;
-*/
+
 
 using namespace std;
 
@@ -60,7 +60,7 @@ Dictionary::Dictionary() {
 			in >> trigram;
 			trigrams.push_back(trigram);
 		}
-
+		dictionary->insert(word);
 		Word w(word, trigrams);
 		words[word.length()-1].push_back(w);
 	}
@@ -72,8 +72,7 @@ Dictionary::Dictionary() {
 }
 
 bool Dictionary::contains(const string& word) const {
-	return false;
-	//return words->count(word);
+	return dictionary->count(word);
 }
 
 vector<string> Dictionary::get_suggestions(const string& word) const {
@@ -130,7 +129,12 @@ void Dictionary::rank_trigram_suggestions(vector<string>& suggestions, const str
 		levenDistances.push_back(make_pair(cost, s)); //creates pair with those specs 
 	}
 	sort(levenDistances.begin(), levenDistances.end());
+	suggestions.clear();
+	for(auto s : levenDistances) {
+		suggestions.push_back(s.second);
+	}
 	//For a pair p, p.first is the first component, p.second the second component...?
+	
 }	
 
 int Dictionary::levenshteinOf(const string word, const string s) const {
@@ -161,7 +165,6 @@ int Dictionary::levenshteinOf(const string word, const string s) const {
 		}
 	}
 	return d[string_length][word_length];
-	//levenshtein help...
 }
 
 //keep 5 best
