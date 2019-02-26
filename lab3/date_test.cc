@@ -3,6 +3,7 @@
 #include "date.h"
 
 using std::cout;
+using std::cin;
 using std::endl;
 using std::setw;
 using std::setfill;
@@ -17,6 +18,8 @@ void print(const Date& d) {
 	cout << setw(2) << setfill('0') << d.getMonth() << '-';
 	cout << setw(2) << setfill('0') << d.getDay();
 }
+
+
 
 int main() {
 	// Check input and output of dates. Uncomment the following when you 

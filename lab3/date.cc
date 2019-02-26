@@ -4,6 +4,9 @@
 #include <iomanip> 
 #include <iostream>
 
+#include <istream>
+#include <ostream>
+
 
 using namespace std;
 
@@ -36,17 +39,17 @@ int Date::getDay() const {
 }
 
 void Date::next() {
-	if(day != daysPerMonth[month]-1) {
+	if(day != daysPerMonth[month-1]) {
 		day++;
 	} else {
-		if(month != 12) {
-			month++;
-		} else {
-			month = 1;
+		if(month == 12) {
 			year++;
+			month = 1;
+		} else {
+			month++;
 		}
 		day = 1;
-	}	
+	}
 }
 
 ostream& operator<<(ostream& out, const Date &date) {
@@ -57,24 +60,27 @@ ostream& operator<<(ostream& out, const Date &date) {
 	return out;
 }
 
-istream& operator>>(istream& in, const Date &date) {
+
+
+//SE NIKLAS METOD
+istream& operator>>(istream& is, Date &date) {
 	int year, month, day;
 	char c1, c2;
 
-	in >> year;
-	in >> c1;
-	in >> month;
-	in >> c2;
-	in >> day;
+	is >> year;
+	is >> c1;
+	is >> month;
+	is >> c2;
+	is >> day;
 	
-	date = Date(year, month, day);
+	//...declaration of ‘Date date’ shadows a parameter if declared as date
+	Date date1 = Date(year, month, day);
 
 
-	if(month <= 0 || month > 12 || day <= 0 || day > Date::daysPerMonth[month - 1]) {
-		in.setstate(ios_base::failbit);
+	if(date1.getMonth() <= 0 || date1.getMonth() > 12 || date1.getDay() <= 0 || 
+		date1.getDay() > Date::daysPerMonth[date1.getMonth() - 1]) {
+		is.setstate(ios_base::failbit);
 	}
 
-	return in;
-
-
+	return is;
 }

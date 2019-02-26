@@ -10,6 +10,7 @@ public:
 private:
     void remove(std::ifstream &file, std::string &input);
     void transform();
+    void translateSpecials();
 
     std::string output;
 };

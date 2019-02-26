@@ -10,48 +10,23 @@ using namespace std;
     int primeLimit = 200;
 
     int findLargestUnderX() {
-        int start = highest;
-        int current = highest;
         bool found = false;
+        int current = highest;
         while(!found) {
-            for(int i = start - 1; i >= 2; i--){
-                if (start % i == 0) {
-                    found = true;
+            found = true;
+            for(int i = current - 1; i >= 2; i--){
+                if (current % i == 0) {
+                    found = false;
                     break;
                 }
+            }
             if(found) {
-                return highest;
+                return current;
             }
-            highest--;
+            current--;
         }
-    };
-
-/*  String returning function not working?
-
-    string findPrimes() {
-        string primeLetters(primeLimit, 'P');
-        primeLetters[0] = 'C';
-        primeLetters[1] = 'C';
-
-        
-        int currentPrime = 2;
-        
-        while(currentPrime < primeLimit) {
-            int currentMultiple = currentPrime * 2;
-            while(currentMultiple < primeLimit) {
-                primeLetters[currentMultiple] = 'C';
-                currentMultiple = currentMultiple + currentPrime; 
-            }
-
-            currentPrime++;
-            //currentPrime becomes index indirectly 
-            while(primeLetters[currentPrime] != 'P' && currentPrime < primeLimit) {
-                currentPrime++;
-            }
-        } 
-        return primeLetters;
+        return 0;
     }
-*/
 
 int main(){
 
