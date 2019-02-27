@@ -13,28 +13,31 @@
     http://www.cplusplus.com/reference/algorithm/sort/          - default sort is used (<)
 */
 
+
+using namespace std;
+
 int main() {  
 
  
-    std::ifstream read_file("words");
-    std::ofstream output("words.txt");
+    ifstream read_file("words");
+    ofstream output("words.txt");
 
-    std::string word;
-
+    string word;
+    
     while(getline(read_file, word)) {
 
-        std::cout << "Reading word " << word << '\n';
+        cout << "Reading word " << word << '\n';
 
         int nbrTrigrams = word.length() - 2; 
 
-        std::transform(word.begin(), word.end(), word.begin(), ::tolower);
+        transform(word.begin(), word.end(), word.begin(), ::tolower);
 
-        std::vector<std::string> trigrams;
+        vector<string> trigrams;
         for(int i = 0; i<nbrTrigrams; i++) {
             trigrams.push_back(word.substr(i, 3));
         }
 
-        std::sort(trigrams.begin(), trigrams.end());
+        sort(trigrams.begin(), trigrams.end());
     
         output << word << " " << nbrTrigrams << " ";
         

@@ -1,52 +1,26 @@
 #include "TagRemover.h"
+#include <regex>
 
 #include <fstream>
 
 using namespace std;
 
-
-
 //IF o.find('a') == std::string::npos THEN o doesn't contain 'a'.
 //IF o.find('a') != std::string::npos THEN o contains 'a' at least once.
 
+
+
+//http://www.cplusplus.com/reference/regex/regex_replace/
+//https://stackoverflow.com/questions/11229831/regular-expression-to-remove-html-tags-from-a-string
 void TagRemover::remove(ifstream &file, string &input) {
-    while(true) {
-        while(input.find('<') != string::npos) {
-            int position = input.find('<');
-
-            if(position != string::npos) {
-                int end = input.find('>');
-
-                if(end != string::npos) {
-                    input.erase(position, end);
-                } else {
-                    input.erase(position, input.length()-position);
-
-                    output += input;
-
-                    string nextLine = input;
-
-                    while(nextLine.find(">") == string::npos) {
-                        output += "\n";
-
-                        getline(file, nextLine);
-                    }
-
-                    nextLine.erase(0, nextLine.find(">"));
-                    input = nextLine;
-
-                    continue;
-                }
-            } 
-        }
-        break;
-    }    
+    std::regex reg (" <[^>]*>");
+    input = regex_replace(input, reg, "");
 }
+
 
 // &lt   &gt   &nbsp   &amp
 void TagRemover::translateSpecials() {
     while(true) {
-        
         while(output.find("&lt") != string::npos) {
             auto pos = output.find("&lt");
             output.replace(pos, 4, "<");

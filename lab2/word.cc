@@ -21,12 +21,11 @@ string Word::get_word() const {
 in this word's trigram vector */
 unsigned int Word::get_matches(const vector<string>& t) const {
 	int count = 0;
-	for(string in_trigram : t) {
-		for(string dict_trigram : trigrams) {
+	for(auto in_trigram : t) {
+		for(auto dict_trigram : trigrams) {
 			//if(in_trigram == dict_trigram) { //doesn't work because it's string comparison
 			if(in_trigram.compare(dict_trigram) == 0) {
 				count++;
-
 			//it's alphabetically sorted; if string comparison yields a nbr < 0
 			//the future ones will not be interesting 
 			} else if(in_trigram.compare(dict_trigram) < 0) { 

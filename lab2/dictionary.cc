@@ -12,7 +12,7 @@
 #include "dictionary.h"
 
 
-
+/*
 using std::ifstream;
 using std::stringstream;
 using std::cout;
@@ -22,7 +22,7 @@ using std::vector;
 using std::min;
 using std::pair;
 using std::make_pair;
-
+*/
 
 using namespace std;
 
@@ -40,8 +40,7 @@ Dictionary::Dictionary() {
 
 	string word;
 
-	/*
-	Word deklareras som såhär: Word(const string& w, const vector<string>& t)
+	/*	Word deklareras som såhär: Word(const string& w, const vector<string>& t)
 									ORDET		 	 EN VEKTOR TRIGRAMS
 
 		För varje word som läggs in i dict vill vi även lägga in motsvarande
@@ -60,19 +59,15 @@ Dictionary::Dictionary() {
 			in >> trigram;
 			trigrams.push_back(trigram);
 		}
-		dictionary->insert(word);
+		dictionary->insert(word); //not sure why only arrow works, ask on lab
 		Word w(word, trigrams);
 		words[word.length()-1].push_back(w);
 	}
-
-	//should push to dictionary as well
-	//dictionary.insert(word); ...
-	
 	in.close();
 }
 
 bool Dictionary::contains(const string& word) const {
-	return dictionary->count(word);
+	return dictionary->count(word); //only arrow
 }
 
 vector<string> Dictionary::get_suggestions(const string& word) const {
@@ -122,19 +117,16 @@ void Dictionary::rank_trigram_suggestions(vector<string>& suggestions, const str
 	if(word.length() < 3) {
 		return;
 	}
-
 	vector<pair<int, string>> levenDistances;
 	for(const auto& s: suggestions) {
 		unsigned int cost = levenshteinOf(word, s);
-		levenDistances.push_back(make_pair(cost, s)); //creates pair with those specs 
+		levenDistances.push_back(make_pair(cost, s));
 	}
 	sort(levenDistances.begin(), levenDistances.end());
 	suggestions.clear();
 	for(auto s : levenDistances) {
-		suggestions.push_back(s.second);
+		suggestions.push_back(s.second); //s.first is cost, s.second the word
 	}
-	//For a pair p, p.first is the first component, p.second the second component...?
-	
 }	
 
 int Dictionary::levenshteinOf(const string word, const string s) const {
@@ -169,14 +161,12 @@ int Dictionary::levenshteinOf(const string word, const string s) const {
 
 //keep 5 best
 void Dictionary::trim_suggestions(vector<string>& suggestions) const {
-	//vector<string>& trimmedSuggestions; better way - RESIZE instead
-	
+	//vector<string>& trimmedSuggestions; ...better way - RESIZE instead
 	int newSize;
 	if(suggestions.size() >= 5) {
 		newSize = 5;
 	} else {
 		newSize = suggestions.size();
 	}
-
 	suggestions.resize(newSize);
 }
