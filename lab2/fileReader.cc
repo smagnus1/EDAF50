@@ -42,8 +42,8 @@ int main() {
         output << word << " " << nbrTrigrams << " ";
         
         std::string trigString;
-        for (const auto &piece : trigrams) {
-            trigString += piece + " ";
+        for (const auto &part : trigrams) {
+            trigString += part + " ";
         }
 
         output << trigString << '\n';
