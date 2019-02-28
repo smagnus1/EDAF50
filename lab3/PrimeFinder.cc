@@ -1,6 +1,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <vector>
 
 
 
@@ -54,6 +55,18 @@ int main(){
             currentPrime++;
         }
     } 
+
+    /*vector<int> num_primes;  
+    for(unsigned int i = 0; i<primeLetters.size(); i++) {
+        string letter = primeLetters.substr(i); 
+        if(letter.compare("C") == 0) {
+            num_primes.push_back(i);
+        }
+    }
+
+    for(auto i = num_primes.begin(); i != num_primes.end(); ++i) {
+        cout << *i <<  ' ';
+    } */
 
     cout << primeLetters << '\n';
     cout << findLargestUnderX() << '\n';

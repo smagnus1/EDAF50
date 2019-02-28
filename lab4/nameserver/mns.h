@@ -1,7 +1,7 @@
 #ifndef MNS_H
 #define MNS_H
 
-#include "nameserverinterface.h"; 
+#include "nameserverinterface.h"
 #include "map";  
 
 class MNS {

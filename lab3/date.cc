@@ -1,11 +1,13 @@
 #include <ctime>  // time and localtime
+#include <iostream>
+#include <iomanip>
+#include <algorithm>
+#include <sstream>
+#include <string>
+
+
 #include "date.h"
 
-#include <iomanip> 
-#include <iostream>
-
-#include <istream>
-#include <ostream>
 
 
 using namespace std;
@@ -60,25 +62,18 @@ ostream& operator<<(ostream& out, const Date &date) {
 	return out;
 }
 
-
-
-//SE NIKLAS METOD
 istream& operator>>(istream& is, Date &date) {
-	int year, month, day;
-	char c1, c2;
 
-	is >> year;
-	is >> c1;
-	is >> month;
-	is >> c2;
-	is >> day;
-	
-	//...declaration of ‘Date date’ shadows a parameter if declared as date
-	Date date1 = Date(year, month, day);
+	string in;
+	getline(is, in);
+	replace(in.begin(), in.end(), ' ', '-');
 
+	istringstream stringstream(in);
+	stringstream >> date.day;
+	stringstream >> date.month;
+	stringstream >> date.year;
 
-	if(date1.getMonth() <= 0 || date1.getMonth() > 12 || date1.getDay() <= 0 || 
-		date1.getDay() > Date::daysPerMonth[date1.getMonth() - 1]) {
+	if(date.getMonth() <= 0 || date.getMonth() > 12 || date.getDay() <= 0 || date.getDay() > Date::daysPerMonth[date.getMonth() - 1]) {
 		is.setstate(ios_base::failbit);
 	}
 

@@ -1,29 +1,29 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
 #include "mns.h"
-#include "map"
 
 
+void MNS::insert(const HostName& host, const IPAddress& ip){
+    my_map[host] = ip; //This assumes there is no need for error handling
+}
 
-void insert(const HostName& host, const IPAddress& ip){
+bool MNS::remove(const HostName& host) {
     if(my_map.count(host) != 0) {
-        my_map.insert(host, ip);
+        auto pos = my_map.find(host);
+        my_map.erase(pos);
+        return true;
     } else {
-        return; //behöver felhantering här
+        return false;
     }
 }
 
-bool remove(const HostName& host) {
+IPAddress MNS::lookup(const HostName& host) const {
     if(my_map.count(host) != 0) {
-        my_map.erase(host);
+        auto pos = my_map.find(host);
+        return pos->second;
     } else {
         return NON_EXISTING_ADDRESS;
     }
-}
-
-IPAddress lookup(const HostName&) const {
-    if(my_map.count(host) != 0) {
-        return my_map.find(host);
-    } else {
-        return NON_EXISTING_ADDRESS;
-    }
-
 }

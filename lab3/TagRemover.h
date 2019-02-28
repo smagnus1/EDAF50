@@ -7,12 +7,13 @@ class TagRemover {
 public:
     TagRemover(std::istream &in);
     void print(std::ostream &out);
+    std::string getText();
+    void fixStuff();
 private:
-    void remove(std::ifstream &file, std::string &input);
-    void transform();
+    void remove(std::string &input);
     void translateSpecials();
 
-    std::string output;
+    std::string text;
 };
 
 #endif
