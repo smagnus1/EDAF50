@@ -1,1 +1,3 @@
-date_test: date.h
+date_test: date_test.cc date.h
+
+date.h:

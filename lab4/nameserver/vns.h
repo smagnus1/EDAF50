@@ -7,9 +7,9 @@
 
 class VNS : public NameServerInterface {
     public:
-        void insert(const HostName&, const IPAddress&) = 0;
-        bool remove(const HostName&) = 0;
-        IPAddress lookup(const HostName&) const = 0;
+        void insert(const HostName&, const IPAddress&);
+        bool remove(const HostName&);
+        IPAddress lookup(const HostName&) const;
     private:
         std::vector<std::pair<HostName, IPAddress>> pairs;
 };

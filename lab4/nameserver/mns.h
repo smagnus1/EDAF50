@@ -2,9 +2,9 @@
 #define MNS_H
 
 #include "nameserverinterface.h"
-#include "map";  
+#include "map" 
 
-class MNS {
+class MNS : public NameServerInterface {
 public: 
     void insert(const HostName&, const IPAddress&);
     bool remove(const HostName&);
