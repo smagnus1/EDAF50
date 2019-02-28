@@ -1,0 +1,8 @@
+using namespace std 
+    - inte alltid bra
+    - importerar alltid hela 
+    - sällan ett problem MEN en fördel är att man genom att ha 
+      std::.. framför sin funktion är att man genast ser det är en
+      std-funktion, och ej en man själv implementerat
+
+const int& a - kan vara bra att deklarera såhär, se lokala filer på skoldatorn
