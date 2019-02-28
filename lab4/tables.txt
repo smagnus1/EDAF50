@@ -1,0 +1,12 @@
+            290,024         1,000,000
+vector      0.667            2,3        - linear
+map         0.00096     0.00331007089   - logarithmic
+unordered   0.00036          same?      - O(1)
+hash        0.00031          same?      - O(1) 
+
+
+
+
+
+
+
