@@ -29,8 +29,8 @@ void VNS::insert(const HostName& host, const IPAddress& ip){
 bool VNS::remove(const HostName& host) {
   
     auto pos = find_if(pairs.begin(), pairs.end(), 
-        [host](const pair<HostName, IPAddress> &thisPair) {
-                return thisPair.first == host; //boolean 
+        [host](const pair<HostName, IPAddress> &thisPair) { //https://stackoverflow.com/questions/7627098/what-is-a-lambda-expression-in-c11
+                return thisPair.first == host; //boolean, will exit if false
         });
 
     if(pos == pairs.end()) {

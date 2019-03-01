@@ -9,9 +9,9 @@ BitReference& BitReference::operator=(bool b) {
 	//
 
 	if (b) {
-		p_bits |= 1L << pos; //p_bits borde vara motsvarande för simplebitset, båda är BitStorage men nåt är fel
+		*p_bits |= 1L << pos; //p_bits borde vara motsvarande för simplebitset, båda är BitStorage men nåt är fel
 	} else {
-		p_bits &= ~ (1L << pos); 
+		*p_bits &= ~ (1L << pos); 
 	}
 
 	return *this;
@@ -23,6 +23,7 @@ BitReference& BitReference::operator=(const BitReference& rhs) {
 	// Same as operator=(bool), but the bit is picked from rhs
 	//
 
+	//need help
 	return *this; 
 }
 
@@ -31,5 +32,5 @@ BitReference::operator bool() const {
 	// *** IMPLEMENT ***
 	// This corresponds to the get() function in SimpleBitset.
 	//
-	return (p_bits & (1L << pos)) != 0;
+	return (*p_bits & (1L << pos)) != 0;
 }

@@ -24,10 +24,12 @@ BitReference Bitset::operator[](size_t pos) {
 //size
 
 Bitset::iterator Bitset::begin() {
-	//return Bitset::iterator(&bits, 0);
+	//return Bitset::iterator(&bits, 0); 
+
 	return BitsetIterator(&bits, 0);
 }
 
 Bitset::iterator Bitset::end() {
-	return Bitset::iterator(&bits, BPW);
+	return BitsetIterator(&bits, BPW); //BPW should be end?
+										 //may be size too
 }

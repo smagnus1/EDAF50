@@ -92,7 +92,7 @@ int main() {
 	 * The hash table implementation. The size of the hash table is
 	 * a parameter to the constructor.
 	 */
-	HNS hns(17441);
+	//HNS hns(17441);
 	
 	/*
 	 * data is a vector containing the name/address pairs. Used by the
@@ -118,7 +118,7 @@ int main() {
 		vns.insert(name, nbr);
 		mns.insert(name, nbr);
 		umns.insert(name, nbr);
-		hns.insert(name, nbr);
+		//hns.insert(name, nbr);
 	}
 	cout << " read " << data.size() << " words." << endl;
 	
@@ -155,6 +155,6 @@ int main() {
 	
 	cout << "Test hash. Number of searches: ";
 	cin >> nbrSearches;
-	avgTime = measureTime(hns, data, nbrSearches, seed);
+	//avgTime = measureTime(hns, data, nbrSearches, seed);
 	cout << "Average search time (ms): " << avgTime << endl;
 }
